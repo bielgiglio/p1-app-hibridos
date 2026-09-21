@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { NOTIFICATIONS } from '../../data/mockData';
+import FollowButton from '../../components/FollowButton';
 
 export default function ActivityScreen() {
   return (
@@ -21,6 +22,7 @@ export default function ActivityScreen() {
               <Text style={styles.username}>{item.user} </Text>
               {item.action} <Text style={styles.timeText}>{item.time}</Text>
             </Text>
+            <FollowButton />
           </View>
         )}
       />
@@ -60,6 +62,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     lineHeight: 18,
     color: '#262626',
+    marginRight: 8,
   },
   username: {
     fontWeight: 'bold',
