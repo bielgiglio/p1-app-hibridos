@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import { router } from 'expo-router';
+import { COLORS } from '../constants/theme';
 
 export default function LoginScreen() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-const handleLogin = () => {
-  router.replace('/(tabs)' as any);
-};
+  const handleLogin = () => {
+    router.replace('/');
+  };
 
   return (
     <View style={styles.container}>
@@ -16,7 +17,7 @@ const handleLogin = () => {
 
       <TextInput
         placeholder="Telefone, nome de utilizador ou email"
-        placeholderTextColor="#888"
+        placeholderTextColor={COLORS.textSecondary}
         value={username}
         onChangeText={setUsername}
         autoCapitalize="none"
@@ -25,7 +26,7 @@ const handleLogin = () => {
 
       <TextInput
         placeholder="Palavra-passe"
-        placeholderTextColor="#888"
+        placeholderTextColor={COLORS.textSecondary}
         value={password}
         onChangeText={setPassword}
         secureTextEntry
@@ -46,7 +47,7 @@ const handleLogin = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: COLORS.background,
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 28,
@@ -55,30 +56,31 @@ const styles = StyleSheet.create({
     fontSize: 42,
     fontWeight: 'bold',
     marginBottom: 44,
-    color: '#000000',
+    color: COLORS.textPrimary,
   },
   input: {
     width: '100%',
     height: 48,
-    backgroundColor: '#FAFAFA',
+    backgroundColor: COLORS.inputBackground,
     borderWidth: 1,
-    borderColor: '#DBDBDB',
+    borderColor: COLORS.border,
     borderRadius: 6,
     paddingHorizontal: 14,
     marginBottom: 12,
     fontSize: 14,
+    color: COLORS.textPrimary,
   },
   loginButton: {
     width: '100%',
     height: 48,
-    backgroundColor: '#3797EF',
+    backgroundColor: COLORS.primary,
     borderRadius: 6,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 8,
   },
   loginButtonText: {
-    color: '#FFFFFF',
+    color: COLORS.background,
     fontWeight: '600',
     fontSize: 14,
   },
@@ -86,7 +88,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   forgotText: {
-    color: '#3797EF',
+    color: COLORS.primary,
     fontSize: 12,
     fontWeight: '500',
   },
