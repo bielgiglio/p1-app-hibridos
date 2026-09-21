@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { View, TextInput, StyleSheet, Image, TouchableOpacity, FlatList, Dimensions } from 'react-native';
-import { Feather } from '@expo/vector-icons';
+import { View, StyleSheet, Image, TouchableOpacity, FlatList, Dimensions } from 'react-native';
 import { router } from 'expo-router';
+import SearchBar from '../../components/SearchBar';
 
 const { width } = Dimensions.get('window');
 const ITEM_SIZE = width / 3;
@@ -30,16 +30,11 @@ export default function ExploreScreen() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.searchContainer}>
-        <Feather name="search" size={18} color="#8E8E8E" style={{ marginRight: 8 }} />
-        <TextInput
-          placeholder="Pesquisar"
-          placeholderTextColor="#8E8E8E"
-          value={search}
-          onChangeText={setSearch}
-          style={styles.searchInput}
-        />
-      </View>
+      <SearchBar
+        value={search}
+        onChangeText={setSearch}
+        onClear={() => setSearch('')}
+      />
 
       <FlatList
         data={EXPLORE_IMAGES}
@@ -65,20 +60,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FFFFFF',
     paddingTop: 45,
-  },
-  searchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#EFEFEF',
-    borderRadius: 10,
-    marginHorizontal: 12,
-    marginBottom: 10,
-    paddingHorizontal: 12,
-    height: 38,
-  },
-  searchInput: {
-    flex: 1,
-    fontSize: 14,
   },
   gridItem: {
     width: ITEM_SIZE,
