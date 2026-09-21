@@ -1,24 +1,18 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import { Feather } from '@expo/vector-icons';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import { Post } from '../data/mockData';
+import { COLORS } from '../constants/theme';
+import PostActions from './PostActions';
 
 interface PostCardProps {
   post: Post;
 }
 
 export default function PostCard({ post }: PostCardProps) {
-  const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(post.likes);
 
-  const handleLike = () => {
-    if (liked) {
-      setLikeCount(prev => prev - 1);
-      setLiked(false);
-    } else {
-      setLikeCount(prev => prev + 1);
-      setLiked(true);
-    }
+  const handleToggleLike = (liked: boolean) => {
+    setLikeCount((prev) => (liked ? prev + 1 : prev - 1));
   };
 
   return (
@@ -30,21 +24,7 @@ export default function PostCard({ post }: PostCardProps) {
 
       <Image source={{ uri: post.postImage }} style={styles.postImage} />
 
-      <View style={styles.actions}>
-        <TouchableOpacity onPress={handleLike} style={{ marginRight: 14 }}>
-          <Feather
-            name="heart"
-            size={22}
-            color={liked ? '#E1306C' : '#000000'}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity style={{ marginRight: 14 }}>
-          <Feather name="message-circle" size={22} color="#000000" />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Feather name="send" size={22} color="#000000" />
-        </TouchableOpacity>
-      </View>
+      <PostActions onToggleLike={handleToggleLike} />
 
       <View style={styles.postDetails}>
         <Text style={styles.likes}>{likeCount} gostos</Text>
@@ -75,15 +55,11 @@ const styles = StyleSheet.create({
   postUser: {
     fontWeight: 'bold',
     fontSize: 13,
+    color: COLORS.textPrimary,
   },
   postImage: {
     width: '100%',
     height: 380,
-  },
-  actions: {
-    flexDirection: 'row',
-    paddingHorizontal: 12,
-    paddingVertical: 10,
   },
   postDetails: {
     paddingHorizontal: 12,
@@ -92,17 +68,19 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 13,
     marginBottom: 4,
+    color: COLORS.textPrimary,
   },
   caption: {
     fontSize: 13,
     lineHeight: 18,
+    color: COLORS.textPrimary,
   },
   bold: {
     fontWeight: 'bold',
   },
   time: {
     fontSize: 10,
-    color: '#8E8E8E',
+    color: COLORS.textSecondary,
     marginTop: 4,
   },
 });
