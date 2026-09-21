@@ -6,9 +6,9 @@ export default function LoginScreen() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    router.replace('/(tabs)');
-  };
+const handleLogin = () => {
+  router.replace('/(tabs)' as any);
+};
 
   return (
     <View style={styles.container}>
