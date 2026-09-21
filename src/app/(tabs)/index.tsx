@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { STORIES, POSTS } from '../../data/mockData';
+import StoryBar from '../../components/StoryBar';
 
 export default function FeedScreen() {
   return (
@@ -19,16 +20,7 @@ export default function FeedScreen() {
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false}>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.storiesContainer}>
-          {STORIES.map(item => (
-            <View key={item.id} style={styles.storyWrapper}>
-              <View style={styles.storyBorder}>
-                <Image source={{ uri: item.image }} style={styles.storyImage} />
-              </View>
-              <Text style={styles.storyUser} numberOfLines={1}>{item.user}</Text>
-            </View>
-          ))}
-        </ScrollView>
+        <StoryBar stories={STORIES} />
 
         {POSTS.map(post => (
           <View key={post.id} style={styles.post}>
@@ -80,34 +72,6 @@ const styles = StyleSheet.create({
   },
   headerIcons: {
     flexDirection: 'row',
-  },
-  storiesContainer: {
-    paddingVertical: 12,
-    borderBottomWidth: 0.5,
-    borderBottomColor: '#DBDBDB',
-  },
-  storyWrapper: {
-    alignItems: 'center',
-    width: 76,
-  },
-  storyBorder: {
-    width: 66,
-    height: 66,
-    borderRadius: 33,
-    borderWidth: 2,
-    borderColor: '#E1306C',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  storyImage: {
-    width: 58,
-    height: 58,
-    borderRadius: 29,
-  },
-  storyUser: {
-    fontSize: 11,
-    marginTop: 4,
-    textAlign: 'center',
   },
   post: {
     marginBottom: 16,
