@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, FlatList, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, FlatList, ScrollView, Dimensions } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { POSTS } from '../../data/mockData';
@@ -13,6 +13,13 @@ const PROFILE_PHOTOS = [
   'https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?w=600',
   'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600',
   'https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=600',
+];
+
+const HIGHLIGHTS = [
+  { id: '1', title: 'Viagens', image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=200' },
+  { id: '2', title: 'Projetos', image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=200' },
+  { id: '3', title: 'Café', image: 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=200' },
+  { id: '4', title: 'Setup', image: 'https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?w=200' },
 ];
 
 export default function ProfileScreen() {
@@ -59,6 +66,18 @@ export default function ProfileScreen() {
       <TouchableOpacity style={styles.editButton}>
         <Text style={styles.editButtonText}>Editar perfil</Text>
       </TouchableOpacity>
+
+      {/* Secção de Destaques */}
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.highlightsContainer}>
+        {HIGHLIGHTS.map((item) => (
+          <View key={item.id} style={styles.highlightWrapper}>
+            <View style={styles.highlightCircle}>
+              <Image source={{ uri: item.image }} style={styles.highlightImage} />
+            </View>
+            <Text style={styles.highlightTitle}>{item.title}</Text>
+          </View>
+        ))}
+      </ScrollView>
 
       <View style={styles.tabDivider} />
 
@@ -157,10 +176,37 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#000000',
   },
+  highlightsContainer: {
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+  },
+  highlightWrapper: {
+    alignItems: 'center',
+    marginRight: 16,
+  },
+  highlightCircle: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    borderWidth: 1,
+    borderColor: '#DBDBDB',
+    padding: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  highlightImage: {
+    width: 52,
+    height: 52,
+    borderRadius: 26,
+  },
+  highlightTitle: {
+    fontSize: 11,
+    color: '#262626',
+    marginTop: 4,
+  },
   tabDivider: {
     height: 1,
     backgroundColor: '#DBDBDB',
-    marginTop: 16,
   },
   gridItem: {
     width: ITEM_SIZE,
