@@ -7,6 +7,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { COLORS } from '../../constants/theme';
@@ -55,6 +56,13 @@ export default function LoginScreen() {
         <TouchableOpacity style={styles.forgotWrapper}>
           <Text style={styles.forgotText}>Esqueceu-se dos dados de início de sessão?</Text>
         </TouchableOpacity>
+
+        <View style={styles.signupFooter}>
+          <Text style={styles.signupText}>Não tens uma conta? </Text>
+          <TouchableOpacity onPress={() => router.push('/cadastro' as any)}>
+            <Text style={styles.signupLink}>Regista-te</Text>
+          </TouchableOpacity>
+        </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
@@ -110,5 +118,18 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     fontSize: 12,
     fontWeight: '500',
+  },
+  signupFooter: {
+    flexDirection: 'row',
+    marginTop: 36,
+  },
+  signupText: {
+    fontSize: 13,
+    color: COLORS.textSecondary,
+  },
+  signupLink: {
+    fontSize: 13,
+    fontWeight: 'bold',
+    color: COLORS.primary,
   },
 });
