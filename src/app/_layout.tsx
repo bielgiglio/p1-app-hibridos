@@ -1,10 +1,25 @@
 import { Stack } from 'expo-router';
+import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
-import { AuthProvider } from '../context/AuthContext';
+import { useEffect } from 'react';
+import { AuthProvider, useAuth } from '../context/AuthContext';
 import { ThemeProvider, useTema } from '../context/ThemeContext';
+
+SplashScreen.preventAutoHideAsync();
 
 function RootNavigator() {
   const { isDark } = useTema();
+  const { pronto } = useAuth();
+
+  useEffect(() => {
+    if (pronto) {
+      SplashScreen.hideAsync();
+    }
+  }, [pronto]);
+
+  if (!pronto) {
+    return null;
+  }
 
   return (
     <>
