@@ -6,16 +6,19 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { COLORS } from '../../constants/theme';
+import { useAuth } from '../../context/AuthContext';
 
 export default function LoginScreen() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const { entrar } = useAuth();
 
   const handleLogin = () => {
+    entrar(username);
     router.replace('/(tabs)' as any);
   };
 
