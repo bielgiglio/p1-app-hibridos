@@ -1,53 +1,69 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import { router } from 'expo-router';
+import { useState } from 'react';
+import {
+  KeyboardAvoidingView,
+  Platform,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { COLORS } from '../constants/theme';
 
 export default function LoginScreen() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-const handleLogin = () => {
-  router.replace('/(tabs)' as any);
-};
+  const handleLogin = () => {
+    router.replace('/(tabs)' as any);
+  };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.logo}>Instagram</Text>
+    <SafeAreaView style={styles.safeArea}>
+      <KeyboardAvoidingView
+        style={styles.container}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      >
+        <Text style={styles.logo}>Instagram</Text>
 
-      <TextInput
-        placeholder="Telefone, nome de utilizador ou email"
-        placeholderTextColor={COLORS.textSecondary}
-        value={username}
-        onChangeText={setUsername}
-        autoCapitalize="none"
-        style={styles.input}
-      />
+        <TextInput
+          placeholder="Telefone, nome de utilizador ou email"
+          placeholderTextColor={COLORS.textSecondary}
+          value={username}
+          onChangeText={setUsername}
+          autoCapitalize="none"
+          style={styles.input}
+        />
 
-      <TextInput
-        placeholder="Palavra-passe"
-        placeholderTextColor={COLORS.textSecondary}
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-        style={styles.input}
-      />
+        <TextInput
+          placeholder="Palavra-passe"
+          placeholderTextColor={COLORS.textSecondary}
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+          style={styles.input}
+        />
 
-      <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-        <Text style={styles.loginButtonText}>Iniciar sessão</Text>
-      </TouchableOpacity>
+        <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+          <Text style={styles.loginButtonText}>Iniciar sessão</Text>
+        </TouchableOpacity>
 
-      <TouchableOpacity style={styles.forgotWrapper}>
-        <Text style={styles.forgotText}>Esqueceu-se dos dados de início de sessão?</Text>
-      </TouchableOpacity>
-    </View>
+        <TouchableOpacity style={styles.forgotWrapper}>
+          <Text style={styles.forgotText}>Esqueceu-se dos dados de início de sessão?</Text>
+        </TouchableOpacity>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  safeArea: {
     flex: 1,
     backgroundColor: COLORS.background,
+  },
+  container: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 28,
