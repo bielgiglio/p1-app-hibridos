@@ -17,10 +17,6 @@ function RootNavigator() {
     }
   }, [pronto]);
 
-  if (!pronto) {
-    return null;
-  }
-
   return (
     <>
       <StatusBar style={isDark ? 'light' : 'dark'} />

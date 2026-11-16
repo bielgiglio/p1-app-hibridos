@@ -14,14 +14,10 @@ interface ThemeContextData {
 const ThemeContext = createContext<ThemeContextData | null>(null);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [modo, setModo, pronto] = usePersistedState<ThemeMode>('app:v1:tema', 'claro');
+  const [modo, setModo] = usePersistedState<ThemeMode>('app:v1:tema', 'claro');
 
   const isDark = modo === 'escuro';
   const tema = isDark ? darkColors : lightColors;
-
-  if (!pronto) {
-    return null;
-  }
 
   return (
     <ThemeContext.Provider value={{ tema, modo, setModo, isDark }}>
