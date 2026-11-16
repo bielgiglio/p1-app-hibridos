@@ -1,9 +1,8 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
-import { STORIES, POSTS } from '../../data/mockData';
-import StoryBar from '../../components/StoryBar';
-import PostCard from '../../components/PostCard';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import PostCard from '../../../components/PostCard';
+import StoryBar from '../../../components/StoryBar';
+import { POSTS, STORIES } from '../../../data/mockData';
 
 export default function FeedScreen() {
   return (

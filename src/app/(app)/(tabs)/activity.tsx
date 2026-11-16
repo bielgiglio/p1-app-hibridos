@@ -1,8 +1,7 @@
-import React from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { Feather } from '@expo/vector-icons';
-import { NOTIFICATIONS } from '../../data/mockData';
-import FollowButton from '../../components/FollowButton';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
+import FollowButton from '../../../components/FollowButton';
+import { NOTIFICATIONS } from '../../../data/mockData';
 
 export default function ActivityScreen() {
   return (

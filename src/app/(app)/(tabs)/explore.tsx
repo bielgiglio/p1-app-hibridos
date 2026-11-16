@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, Image, TouchableOpacity, FlatList, Dimensions } from 'react-native';
 import { router } from 'expo-router';
-import SearchBar from '../../components/SearchBar';
+import { useState } from 'react';
+import { Dimensions, FlatList, Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import SearchBar from '../../../components/SearchBar';
 
 const { width } = Dimensions.get('window');
 const ITEM_SIZE = width / 3;

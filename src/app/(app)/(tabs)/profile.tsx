@@ -1,9 +1,8 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, FlatList, ScrollView, Dimensions } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { router } from 'expo-router';
-import { POSTS } from '../../data/mockData';
-import ProfileHeader from '../../components/ProfileHeader';
+import { Dimensions, FlatList, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import ProfileHeader from '../../../components/ProfileHeader';
+import { POSTS } from '../../../data/mockData';
 
 const { width } = Dimensions.get('window');
 const ITEM_SIZE = width / 3;

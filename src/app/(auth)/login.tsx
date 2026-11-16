@@ -9,7 +9,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { COLORS } from '../constants/theme';
+import { COLORS } from '../../constants/theme';
 
 export default function LoginScreen() {
   const [username, setUsername] = useState('');
