@@ -1,34 +1,78 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { cache } from '../services/cache';
 
-export function useFetch<T>(buscar: (forcar?: boolean) => Promise<T>) {
+interface UseFetchOptions {
+  cacheKey?: string;
+  ttlMs?: number;
+}
+
+export function useFetch<T>(
+  fetcher: () => Promise<T>,
+  options?: UseFetchOptions
+) {
   const [dados, setDados] = useState<T | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [carregando, setCarregando] = useState<boolean>(true);
   const [erro, setErro] = useState<string | null>(null);
+  const [usandoCache, setUsandoCache] = useState<boolean>(false);
 
-  const carregar = useCallback(
-    async (forcar = false) => {
-      setLoading(true);
+  const fetcherRef = useRef(fetcher);
+  fetcherRef.current = fetcher;
+
+  const cacheKey = options?.cacheKey;
+  const ttlMs = options?.ttlMs;
+
+  const executar = useCallback(
+    async (silencioso = false) => {
+      if (!silencioso) {
+        setCarregando(true);
+      }
       setErro(null);
+
+      let temCachePrevio = false;
+
+      if (cacheKey) {
+        const emCache = await cache.get<T>(cacheKey);
+        if (emCache) {
+          setDados(emCache.dados);
+          temCachePrevio = true;
+          if (!emCache.expirado) {
+            setUsandoCache(false);
+            setCarregando(false);
+            return;
+          }
+        }
+      }
+
       try {
-        const resultado = await buscar(forcar);
+        const resultado = await fetcherRef.current();
         setDados(resultado);
-      } catch (e) {
-        setErro((e as Error).message || 'Falha ao carregar dados');
+        setUsandoCache(false);
+        if (cacheKey) {
+          await cache.set(cacheKey, resultado, ttlMs);
+        }
+      } catch (e: any) {
+        if (temCachePrevio) {
+          setUsandoCache(true);
+        } else {
+          setErro(e?.message || 'Erro ao carregar os dados.');
+        }
       } finally {
-        setLoading(false);
+        setCarregando(false);
       }
     },
-    [buscar]
+    [cacheKey, ttlMs]
   );
 
   useEffect(() => {
-    carregar(false);
-  }, [carregar]);
+    executar();
+  }, [executar]);
 
-  return {
-    dados,
-    loading,
-    erro,
-    recarregar: () => carregar(true),
-  };
+  const recarregar = useCallback(async () => {
+    if (cacheKey) {
+      await cache.clear(cacheKey);
+    }
+    await executar(true);
+  }, [cacheKey, executar]);
+
+  return { dados, carregando, erro, usandoCache, recarregar };
 }

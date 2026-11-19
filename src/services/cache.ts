@@ -1,32 +1,30 @@
 import { storage } from './storage';
 
-type EntradaCache<T> = {
+interface CacheItem<T> {
   dados: T;
-  salvoEm: number;
-};
-
-export async function comCache<T>(
-  chave: string,
-  buscar: () => Promise<T>,
-  ttlMs = 5 * 60_000,
-  forcarAtualizacao = false
-): Promise<T> {
-  const guardado = await storage.get<EntradaCache<T> | null>(chave, null);
-  const fresco =
-    !forcarAtualizacao && guardado && Date.now() - guardado.salvoEm < ttlMs;
-
-  if (fresco) {
-    return guardado.dados;
-  }
-
-  try {
-    const dados = await buscar();
-    await storage.set(chave, { dados, salvoEm: Date.now() });
-    return dados;
-  } catch (erro) {
-    if (guardado) {
-      return guardado.dados;
-    }
-    throw erro;
-  }
+  expiraEm: number;
 }
+
+const DEFAULT_TTL_MS = 5 * 60 * 1000; // 5 minutos
+
+export const cache = {
+  async get<T>(chave: string): Promise<{ dados: T; expirado: boolean } | null> {
+    const item = await storage.get<CacheItem<T> | null>(`cache:${chave}`, null);
+    if (!item) return null;
+
+    const expirado = Date.now() > item.expiraEm;
+    return { dados: item.dados, expirado };
+  },
+
+  async set<T>(chave: string, dados: T, ttlMs: number = DEFAULT_TTL_MS): Promise<void> {
+    const item: CacheItem<T> = {
+      dados,
+      expiraEm: Date.now() + ttlMs,
+    };
+    await storage.set(`cache:${chave}`, item);
+  },
+
+  async clear(chave: string): Promise<void> {
+    await storage.remove(`cache:${chave}`);
+  },
+};
