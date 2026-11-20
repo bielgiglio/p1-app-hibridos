@@ -1,5 +1,6 @@
-import { Redirect, Stack } from 'expo-router';
-import { View } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { Redirect, Stack, router } from 'expo-router';
+import { TouchableOpacity, View } from 'react-native';
 import OfflineBanner from '../../components/OfflineBanner';
 import { useAuth } from '../../context/AuthContext';
 import { useTema } from '../../context/ThemeContext';
@@ -22,6 +23,8 @@ export default function AppLayout() {
           headerShown: false,
           headerStyle: { backgroundColor: tema.background },
           headerTintColor: tema.textPrimary,
+          headerBackButtonDisplayMode: 'minimal',
+          headerBackTitle: '',
         }}
       >
         <Stack.Screen name="(tabs)" />
@@ -39,6 +42,11 @@ export default function AppLayout() {
             headerShown: true,
             title: 'Nova Publicação',
             presentation: 'modal',
+            headerLeft: () => (
+              <TouchableOpacity onPress={() => router.back()} style={{ paddingRight: 12 }}>
+                <Ionicons name="close" size={26} color={tema.textPrimary} />
+              </TouchableOpacity>
+            ),
           }}
         />
         <Stack.Screen
@@ -53,8 +61,6 @@ export default function AppLayout() {
           name="story/[id]"
           options={{ headerShown: false, presentation: 'fullScreenModal' }}
         />
-
-
       </Stack>
     </View>
   );
