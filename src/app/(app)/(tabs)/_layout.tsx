@@ -1,45 +1,53 @@
-import React from 'react';
+import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
-import { Feather } from '@expo/vector-icons';
+import { useTema } from '../../../context/ThemeContext';
 
-export default function TabLayout() {
+export default function TabsLayout() {
+  const { tema } = useTema();
+
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
-        tabBarActiveTintColor: '#000000',
-        tabBarInactiveTintColor: '#8E8E8E',
+        tabBarActiveTintColor: tema.textPrimary,
+        tabBarInactiveTintColor: tema.textSecondary,
         tabBarStyle: {
-          backgroundColor: '#FFFFFF',
-          borderTopWidth: 0.5,
-          borderTopColor: '#DBDBDB',
-          height: 50,
+          backgroundColor: tema.background,
+          borderTopColor: tema.border,
         },
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
-          tabBarIcon: ({ color }) => <Feather name="home" size={24} color={color} />,
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons name={focused ? 'home' : 'home-outline'} size={24} color={color} />
+          ),
         }}
       />
       <Tabs.Screen
         name="explore"
         options={{
-          tabBarIcon: ({ color }) => <Feather name="search" size={24} color={color} />,
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons name={focused ? 'search' : 'search-outline'} size={24} color={color} />
+          ),
         }}
       />
       <Tabs.Screen
         name="activity"
         options={{
-          tabBarIcon: ({ color }) => <Feather name="heart" size={24} color={color} />,
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons name={focused ? 'heart' : 'heart-outline'} size={24} color={color} />
+          ),
         }}
       />
       <Tabs.Screen
         name="profile"
         options={{
-          tabBarIcon: ({ color }) => <Feather name="user" size={24} color={color} />,
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons name={focused ? 'person' : 'person-outline'} size={24} color={color} />
+          ),
         }}
       />
     </Tabs>

@@ -1,53 +1,77 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
-import { Story } from '../data/mockData';
+import { router } from 'expo-router';
+import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useTema } from '../context/ThemeContext';
+
+interface Story {
+  id: string;
+  user: string;
+  avatar: string;
+}
 
 interface StoryBarProps {
   stories: Story[];
 }
 
 export default function StoryBar({ stories }: StoryBarProps) {
+  const { tema } = useTema();
+
   return (
-    <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.container}>
-      {stories.map((item) => (
-        <View key={item.id} style={styles.wrapper}>
-          <View style={styles.border}>
-            <Image source={{ uri: item.image }} style={styles.image} />
-          </View>
-          <Text style={styles.username} numberOfLines={1}>{item.user}</Text>
-        </View>
-      ))}
-    </ScrollView>
+    <View style={[styles.container, { backgroundColor: tema.background, borderBottomColor: tema.border }]}>
+      <FlatList
+        data={stories}
+        keyExtractor={(item) => item.id}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.listContent}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            style={styles.storyItem}
+            onPress={() => router.push(`/story/${item.id}` as any)}
+            activeOpacity={0.75}
+          >
+            <View style={[styles.ring, { borderColor: tema.like }]}>
+              <Image source={{ uri: item.avatar }} style={styles.avatar} />
+            </View>
+            <Text style={[styles.username, { color: tema.textPrimary }]} numberOfLines={1}>
+              {item.user}
+            </Text>
+          </TouchableOpacity>
+        )}
+      />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 12,
+    paddingVertical: 10,
     borderBottomWidth: 0.5,
-    borderBottomColor: '#DBDBDB',
   },
-  wrapper: {
+  listContent: {
+    paddingHorizontal: 10,
+  },
+  storyItem: {
     alignItems: 'center',
-    width: 76,
-  },
-  border: {
+    marginRight: 14,
     width: 66,
-    height: 66,
-    borderRadius: 33,
+  },
+  ring: {
+    width: 62,
+    height: 62,
+    borderRadius: 31,
     borderWidth: 2,
-    borderColor: '#E1306C',
+    padding: 2,
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: 4,
   },
-  image: {
-    width: 58,
-    height: 58,
-    borderRadius: 29,
+  avatar: {
+    width: 54,
+    height: 54,
+    borderRadius: 27,
   },
   username: {
     fontSize: 11,
-    marginTop: 4,
     textAlign: 'center',
   },
 });
