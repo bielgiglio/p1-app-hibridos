@@ -41,6 +41,11 @@ export default function AppLayout() {
             presentation: 'modal',
           }}
         />
+        <Stack.Screen
+          name="editar-perfil"
+          options={{ headerShown: true, title: 'Editar Perfil' }}
+        />
+
       </Stack>
     </View>
   );
