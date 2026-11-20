@@ -45,6 +45,11 @@ export default function AppLayout() {
           name="editar-perfil"
           options={{ headerShown: true, title: 'Editar Perfil' }}
         />
+        <Stack.Screen
+          name="configuracoes"
+          options={{ headerShown: true, title: 'Configurações' }}
+        />
+
 
       </Stack>
     </View>
