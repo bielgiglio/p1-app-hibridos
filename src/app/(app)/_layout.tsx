@@ -33,6 +33,14 @@ export default function AppLayout() {
           name="post/[id]"
           options={{ headerShown: true, title: 'Detalhes do Post' }}
         />
+        <Stack.Screen
+          name="nova-publicacao"
+          options={{
+            headerShown: true,
+            title: 'Nova Publicação',
+            presentation: 'modal',
+          }}
+        />
       </Stack>
     </View>
   );
