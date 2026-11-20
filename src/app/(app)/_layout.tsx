@@ -1,4 +1,6 @@
 import { Redirect, Stack } from 'expo-router';
+import { View } from 'react-native';
+import OfflineBanner from '../../components/OfflineBanner';
 import { useAuth } from '../../context/AuthContext';
 
 export default function AppLayout() {
@@ -11,12 +13,15 @@ export default function AppLayout() {
   }
 
   return (
-    <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="(tabs)" />
-      <Stack.Screen
-        name="post-detail"
-        options={{ headerShown: true, title: 'Publicação' }}
-      />
-    </Stack>
+    <View style={{ flex: 1 }}>
+      <OfflineBanner />
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="(tabs)" />
+        <Stack.Screen
+          name="post-detail"
+          options={{ headerShown: true, title: 'Publicação' }}
+        />
+      </Stack>
+    </View>
   );
 }
