@@ -4,6 +4,7 @@ import { useState } from 'react';
 import {
     Alert,
     Image,
+    ImageBackground,
     KeyboardAvoidingView,
     Platform,
     Pressable,
@@ -21,6 +22,7 @@ const STORY_IMAGES = [
   'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=900',
   'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=900',
   'https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?w=900',
+  'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=900',
 ];
 
 export default function StoryViewerScreen() {
@@ -59,12 +61,11 @@ export default function StoryViewerScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      <Image source={{ uri: imagemFundo }} style={styles.backgroundImage} />
-      <View style={styles.overlay} />
+    <ImageBackground source={{ uri: imagemFundo }} style={styles.container} resizeMode="cover">
+      <View style={styles.overlay} pointerEvents="none" />
 
       <SafeAreaView style={styles.safeArea} edges={['top', 'bottom']}>
-        {/* Barras de progresso por story */}
+        {/* Barras de progresso */}
         <View style={styles.progressRow}>
           {STORIES.map((s, idx) => (
             <View key={s.id} style={styles.progressBarBg}>
@@ -87,26 +88,26 @@ export default function StoryViewerScreen() {
               {currentIndex + 1}/{STORIES.length}
             </Text>
           </View>
-          <TouchableOpacity onPress={() => router.back()} style={styles.closeBtn} hitSlop={12}>
+          <TouchableOpacity onPress={() => router.back()} style={styles.closeBtn} hitSlop={16}>
             <Ionicons name="close" size={30} color="#FFFFFF" />
           </TouchableOpacity>
         </View>
 
-        {/* Áreas invisíveis esquerda/direita para voltar ou avançar o story */}
+        {/* Áreas esquerda e direita para voltar ou avançar o Story */}
         <View style={styles.tapZones}>
           <Pressable style={styles.tapHalf} onPress={irAnterior} />
           <Pressable style={styles.tapHalf} onPress={irProximo} />
         </View>
 
-        {/* Rodapé para responder ao Story */}
+        {/* Rodapé com input e ações */}
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-          keyboardVerticalOffset={10}
+          keyboardVerticalOffset={12}
         >
           <View style={styles.footer}>
             <TextInput
               placeholder={`Enviar mensagem para ${storyAtual.user}...`}
-              placeholderTextColor="#DDDDDD"
+              placeholderTextColor="#E5E5E5"
               value={resposta}
               onChangeText={setResposta}
               style={styles.replyInput}
@@ -124,7 +125,7 @@ export default function StoryViewerScreen() {
           </View>
         </KeyboardAvoidingView>
       </SafeAreaView>
-    </View>
+    </ImageBackground>
   );
 }
 
@@ -133,23 +134,19 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#000000',
   },
-  backgroundImage: {
-    ...StyleSheet.absoluteFillObject,
-    width: '100%',
-    height: '100%',
-  },
   overlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0,0,0,0.32)',
+    backgroundColor: 'rgba(0,0,0,0.35)',
   },
   safeArea: {
     flex: 1,
     paddingHorizontal: 14,
+    zIndex: 2,
   },
   progressRow: {
     flexDirection: 'row',
     gap: 4,
-    marginTop: 6,
+    marginTop: 8,
     marginBottom: 12,
   },
   progressBarBg: {
@@ -167,7 +164,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    zIndex: 10,
   },
   userInfo: {
     flexDirection: 'row',
@@ -180,6 +176,7 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     borderWidth: 1.5,
     borderColor: '#FFFFFF',
+    backgroundColor: '#333333',
   },
   username: {
     color: '#FFFFFF',
@@ -191,7 +188,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   closeBtn: {
-    padding: 4,
+    padding: 6,
   },
   tapZones: {
     flex: 1,
@@ -210,12 +207,12 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 44,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.75)',
+    borderColor: 'rgba(255,255,255,0.8)',
     borderRadius: 22,
     paddingHorizontal: 16,
     color: '#FFFFFF',
     fontSize: 14,
-    backgroundColor: 'rgba(0,0,0,0.25)',
+    backgroundColor: 'rgba(0,0,0,0.35)',
   },
   iconBtn: {
     padding: 4,

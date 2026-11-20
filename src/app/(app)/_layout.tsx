@@ -59,7 +59,7 @@ export default function AppLayout() {
         />
         <Stack.Screen
           name="story/[id]"
-          options={{ headerShown: false, presentation: 'fullScreenModal' }}
+          options={{ headerShown: false, presentation: 'card' }}
         />
       </Stack>
     </View>

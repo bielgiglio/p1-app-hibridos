@@ -1,57 +1,130 @@
-export interface Story {
-  id: string;
-  user: string;
-  image: string;
-}
-
-export interface Post {
-  id: string;
-  user: string;
-  avatar: string;
-  postImage: string;
-  likes: number;
-  caption: string;
-  time: string;
-}
-
-export interface NotificationItem {
-  id: string;
-  user: string;
-  action: string;
-  time: string;
-}
-
-export const STORIES: Story[] = [
-  { id: '1', user: 'O teu story', image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200' },
-  { id: '2', user: 'lucas_dev', image: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=200' },
-  { id: '3', user: 'mari.tech', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200' },
-  { id: '4', user: 'react_brasil', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200' },
-  { id: '5', user: 'pedro_s', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200' },
-];
-
-export const POSTS: Post[] = [
+export const STORIES = [
   {
     id: '1',
-    user: 'mari.tech',
-    avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200',
-    postImage: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800',
-    likes: 124,
-    caption: 'Desenvolvendo interfaces no Expo com React Native! 🚀💻',
-    time: 'Há 2 horas'
+    user: 'O teu story',
+    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300',
   },
   {
     id: '2',
     user: 'lucas_dev',
-    avatar: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=200',
-    postImage: 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=800',
-    likes: 89,
-    caption: 'Momento de pausa para o café ☕',
-    time: 'Há 5 horas'
-  }
+    avatar: 'https://i.pravatar.cc/150?img=11',
+  },
+  {
+    id: '3',
+    user: 'mari.tech',
+    avatar: 'https://i.pravatar.cc/150?img=5',
+  },
+  {
+    id: '4',
+    user: 'react_brasil',
+    avatar: 'https://i.pravatar.cc/150?img=12',
+  },
+  {
+    id: '5',
+    user: 'pedro_s',
+    avatar: 'https://i.pravatar.cc/150?img=33',
+  },
 ];
 
-export const NOTIFICATIONS: NotificationItem[] = [
-  { id: '1', user: 'lucas_dev', action: 'gostou da tua publicação.', time: '1h' },
-  { id: '2', user: 'react_brasil', action: 'começou a seguir-te.', time: '3h' },
-  { id: '3', user: 'mari.tech', action: 'mencionou-te num comentário.', time: '1d' }
+export const POSTS = [
+  {
+    id: '1',
+    user: 'bielgiglio',
+    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300',
+    postImage: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800',
+    caption: 'A programar em React Native e Expo Router.',
+    likes: 124,
+    time: 'Há 2 h',
+  },
+  {
+    id: '2',
+    user: 'bielgiglio',
+    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300',
+    postImage: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800',
+    caption: 'Fim de semana na praia.',
+    likes: 98,
+    time: 'Há 1 dia',
+  },
+  {
+    id: '3',
+    user: 'bielgiglio',
+    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300',
+    postImage: 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=800',
+    caption: 'Café e código.',
+    likes: 215,
+    time: 'Há 3 dias',
+  },
+  {
+    id: '4',
+    user: 'bielgiglio',
+    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300',
+    postImage: 'https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?w=800',
+    caption: 'Explorando novos lugares.',
+    likes: 176,
+    time: 'Há 5 dias',
+  },
+  {
+    id: '5',
+    user: 'bielgiglio',
+    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300',
+    postImage: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800',
+    caption: 'Paisagem incrível.',
+    likes: 310,
+    time: 'Há 1 semana',
+  },
+  {
+    id: '6',
+    user: 'bielgiglio',
+    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300',
+    postImage: 'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?w=800',
+    caption: 'Setup pronto para o projeto.',
+    likes: 142,
+    time: 'Há 2 semanas',
+  },
+];
+
+export const ACTIVITIES = [
+  {
+    id: '1',
+    user: 'lucas_dev',
+    avatar: 'https://i.pravatar.cc/150?img=11',
+    action: 'gostou da tua publicação.',
+    time: '15 min',
+    postId: 1,
+    postThumb: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=200',
+  },
+  {
+    id: '2',
+    user: 'mari.tech',
+    avatar: 'https://i.pravatar.cc/150?img=5',
+    action: 'começou a seguir-te.',
+    time: '1 h',
+    following: false,
+  },
+  {
+    id: '3',
+    user: 'react_brasil',
+    avatar: 'https://i.pravatar.cc/150?img=12',
+    action: 'comentou: "Excelente arquitetura com Expo Router!"',
+    time: '3 h',
+    postId: 2,
+    postThumb: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=200',
+  },
+  {
+    id: '4',
+    user: 'pedro_s',
+    avatar: 'https://i.pravatar.cc/150?img=33',
+    action: 'gostou da tua publicação.',
+    time: '5 h',
+    postId: 3,
+    postThumb: 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=200',
+  },
+  {
+    id: '5',
+    user: 'ana.silva',
+    avatar: 'https://i.pravatar.cc/150?img=9',
+    action: 'começou a seguir-te.',
+    time: '1 d',
+    following: true,
+  },
 ];
