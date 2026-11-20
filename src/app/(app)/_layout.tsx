@@ -49,6 +49,10 @@ export default function AppLayout() {
           name="configuracoes"
           options={{ headerShown: true, title: 'Configurações' }}
         />
+        <Stack.Screen
+          name="story/[id]"
+          options={{ headerShown: false, presentation: 'fullScreenModal' }}
+        />
 
 
       </Stack>
